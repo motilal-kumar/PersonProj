@@ -9,14 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;;import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-/*
-*
-*
-
-
- */
 
 @RestController
 @RequestMapping("/api/v2")
@@ -51,6 +46,16 @@ public class ArticleController {
 
         System.out.println("article: "+article);
         return new ResponseEntity<>(article, HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = "/authororitle", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Article>> getAllByAuthorOrTitle(@RequestParam(value = "author") String author, @RequestParam(value = "title") String title) {
+
+        List<Article> articleList = articleService.getAllByAuthorOrTitle(author,title);
+
+        System.out.println("article: "+articleList);
+        return new ResponseEntity<>(articleList, HttpStatus.OK);
 
     }
 

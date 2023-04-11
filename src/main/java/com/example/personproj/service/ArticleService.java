@@ -30,10 +30,19 @@ public class ArticleService  implements IArticleService{
 
     @Override
     public String findAllTagsByTitle(String title) {
-        String article = articleRepository.findAllTagsByTitle(title);
+       /* String article = articleRepository.findAllTagsByTitle(title);
         System.out.println("article: "+article);
 
-        return article;
+        return article;*/
+        return title;
+    }
+
+    @Override
+    public List<Article> getAllByAuthorOrTitle(String author, String title) {
+        List<Article> articleList = articleRepository.findAllByAuthorOrTitle(author,title);
+        System.out.println("article: "+articleList);
+
+        return articleList;
     }
 
 }

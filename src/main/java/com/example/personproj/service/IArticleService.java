@@ -12,4 +12,6 @@ public interface IArticleService {
     public Article findByTitle(String title);
 
     public String findAllTagsByTitle(String title);
+
+    public List<Article> getAllByAuthorOrTitle(String author, String title);
 }

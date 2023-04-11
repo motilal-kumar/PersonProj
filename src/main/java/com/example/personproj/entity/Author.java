@@ -1,15 +1,26 @@
 package com.example.personproj.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Entity
-@Data
+@Embeddable
 public class Author {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String author;
+    private String name;
+    private String login;
+
+    public Author(String name, String login) {
+        this.name = name;
+        this.login = login;
+    }
+
+    public Author() {
+        }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLogin() {
+        return login;
+    }
 }

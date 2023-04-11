@@ -12,16 +12,16 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long>, JpaSpecificationExecutor<Article> {
 
-    @Query("SELECT a FROM Article a WHERE a.author = :author")
+    @Query("SELECT a FROM Article a WHERE a.author.name = :author")
     List<Article> findAllByAuthor(@Param("author") String author);
 
-    @Query("SELECT DISTINCT a.tags FROM Article a WHERE a.title = :title")
-    String findAllTagsByTitle(@Param("title") String title);
+    @Query(value = "SELECT * FROM article_tags a WHERE article_id = :articleId", nativeQuery = true)
+    String findAllTagsByTitle(@Param("articleId") Long articleId);
 
-    @Query("SELECT a FROM Article a WHERE a.author = :author OR a.title = :title")
+    @Query("SELECT a FROM Article a WHERE a.author.name = :author or a.title = :title")
     List<Article> findAllByAuthorOrTitle(@Param("author") String author, @Param("title") String title);
 
-    @Query("SELECT DISTINCT a.author FROM Article a WHERE a.title = :title")
+    @Query("SELECT  a.author FROM Article a WHERE a.title = :title")
     List<String> findAllAuthorsByTitle(@Param("title") String title);
 
     @Query("SELECT a FROM Article a WHERE :tag MEMBER OF a.tags")
@@ -30,7 +30,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, JpaSpec
     @Query("SELECT a FROM Article a WHERE a.title = :title")
     Article findByTitle(@Param("title") String title);
 
-   /* @Query("SELECT a FROM Article a WHERE LOWER(a.title) LIKE CONCAT('%', LOWER(:titlePart), '%')")
-    List<Article> findAllByTitleContainingIgnoreCase(@Param("titlePart") String titlePart);*/
-
+ /*   @Query("SELECT a FROM Article a WHERE LOWER(a.title) LIKE CONCAT('%', LOWER(:titlePart), '%')")
+    List<Article> findAllByTitleContainingIgnoreCase(@Param("titlePart") String titlePart);
+*/
 }
